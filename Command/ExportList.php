@@ -17,6 +17,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Yaml\Yaml;
 use Thelia\Command\ContainerAwareCommand;
 use Thelia\Core\Template\TemplateDefinition;
 
@@ -46,7 +47,7 @@ class ExportList extends ContainerAwareCommand
                 'format',
                 'f',
                 InputOption::VALUE_OPTIONAL,
-                'export format wanted : json, xml or array',
+                'export format wanted : json, xml, yml or array',
                 'json'
             )
             ->addOption(
@@ -78,6 +79,9 @@ class ExportList extends ContainerAwareCommand
                 break;
             case 'xml':
                 $response = $this->xmlFormat($hooks);
+                break;
+            case 'yml':
+                $response = Yaml::dump($hooks);
                 break;
             case 'array':
                 $response = var_export($hooks);
