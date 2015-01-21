@@ -71,6 +71,8 @@ class ExportList extends ContainerAwareCommand
             $hooks = $this->orderByFile($hooks);
         }
 
+        ksort($hooks);
+
         $format = $input->getOption('format');
         $response = '';
         switch ($format) {
@@ -115,7 +117,7 @@ class ExportList extends ContainerAwareCommand
 
             $find[] = $current;
 
-            $ordered[$file] =$find;
+            $ordered[$file] = $find;
 
         } while (count($hooks) > 0);
 
